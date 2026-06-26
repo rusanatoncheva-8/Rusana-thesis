@@ -118,11 +118,6 @@ It loads the result via load_dynamics_cdeg, collects the orthogonal basis {L_μ}
 "
 function precompute(Nmax, buffer, depth, optol)
     sysd = build_system(ETA_SR88, Nmax; omega = OMEGA_REL, buffer = buffer)
-    # Unit-normalise the generators before building the structure tensor (consistent
-    # with the reachability path, App. J): with the raw drift ||A|| ~ omega*Nsim >> 1,
-    # the algebra generation is ill-conditioned and the tensor acquires huge/non-finite
-    # entries that later overflow in contract_dynamics -> expv. We absorb the scales
-    # (alpha,beta) into the segment time and control coefficients at synthesis time.
     alpha = opnorm(Matrix(sysd.A)); beta = opnorm(Matrix(sysd.B))
     An = sparse(sysd.A ./ alpha);  Bn = sparse(sysd.B ./ beta)
     tag   = "Nmax$(Nmax)_bd$(buffer)_d$(depth)_m$(MDEG)_ot$(round(Int, -log10(optol)))_un"
