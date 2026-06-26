@@ -160,14 +160,12 @@ function magnus_row(Nmax, T, syss)
      peakD = maximum(abs, best.delta), secs = 0.0)
 end
 
-"
-Propagation-accuracy diagnostic on random controls. 
+" 
 Part (a) is a sweep truncation order k_M ∈ CONV_DEPTHS at a fixed, well-resolved
-nseg and record ‖U_magnus − U_exact‖ against a near-exact static reference — the Magnus-order
-convergence of §I.1.1/§I.1.3. 
+nseg and record ‖U_magnus − U_exact‖ 
 Part (b) is fixed k_M at the synthesis depth and sweep nseg as multiples
 of the convergence-bound minimum ⌈αT⌉ (ŝ = αT/nseg < 1), showing the segment-count convergence.
- Writes the two magnus_convergence* CSVs.
+It writes the two magnus_convergence* CSVs.
 "
 function section_magnus_convergence(Nmax, T)
     RUN_MAGNUS || return
